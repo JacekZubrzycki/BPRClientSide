@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BPRMobileApp.Views.DetailedOfferView">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="Offer id" TextColor="Black"/>
+            <Label Text="{Binding OfferId}" TextColor="Black"/>
+            <Label Text="Subject" TextColor="Black"/>
+            <Label Text="{Binding SubjectName}" TextColor="Black"/>
+            <Label Text="Teacher Name" TextColor="Black"/>
+            <Label Text="{Binding TeacherName}" TextColor="Black"/>
+            <Label Text="Location" TextColor="Black"/>
+            <Label Text="{Binding Location}" TextColor="Black"/>
+            <Label Text="Phone Number" TextColor="Black"/>
+            <Label Text="{Binding PhoneNumber}" TextColor="Black"/>
+            <Label Text="Avarage Rating" TextColor="Black"/>
+            <Label Text="{Binding AvgRating}" TextColor="Black"/>
+            <Label Text="Price" TextColor="Black"/>
+            <Label Text="{Binding Price}" TextColor="Black"/>
+            
+            <Label Text="{Binding From}" TextColor="Black"/>
+            <Picker ItemsSource="{Binding FromList}" SelectedIndex="{Binding SelectedIndexFromList}"/>
+            <Label Text="{Binding To}" TextColor="Black"/>
+            <Picker ItemsSource="{Binding ToList}" SelectedIndex="{Binding SelectedIndexToList}"/>
+            <Button Command="{Binding TestButton}" Text="Text"/>
+            <Button Command="{Binding BookOffer}" Text="Text"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BPRMobileApp.Views.AddNewOfferView">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="Choose subject" TextColor="Black"/>
+            <Picker ItemsSource="{Binding Subjects}"/>
+            <Label Text="Price" TextColor="Black"/>
+            <Entry Text="{Binding Price}"/>
+            <Label Text="Minimum time" TextColor="Black"/>
+            <Entry Text="{Binding MinTime}"/>
+            <Label Text="From" TextColor="Black"/>
+            <DatePicker Date="{Binding FromDate}" BackgroundColor="AliceBlue"/>
+            <TimePicker Time="{Binding FromTime}" BackgroundColor="Aquamarine"/>
+            <Label Text="To" TextColor="Black"/>
+            <DatePicker Date="{Binding ToDate}" BackgroundColor="AliceBlue"/>
+            <TimePicker Time="{Binding ToTime}" BackgroundColor="Aquamarine"/>
+            <Button Text="Post Offer" Command="{Binding AddNewOffer}"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

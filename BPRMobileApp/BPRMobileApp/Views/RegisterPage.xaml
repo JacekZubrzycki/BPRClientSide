@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BPRMobileApp.Views.RegisterPage"
+             Shell.PresentationMode="Animated">
+
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout>
+                
+                <Label Text="Username" TextColor="Black"/>
+                <Frame Padding="3" BorderColor="#9ca7b8" CornerRadius="5" BackgroundColor="{Binding UsernameFrameBackgroundColor}">
+                    <Entry x:Name="UsernameEntry" BackgroundColor="#9ca7b8" Text="{Binding Username}" TextColor="{Binding UsernameTextColor}" Focused="UsernameEntry_Focused"/>
+                </Frame>
+                
+                <Label Text="Email" TextColor="Black"/>
+                <Frame Padding="3" BorderColor="#9ca7b8" CornerRadius="5" BackgroundColor="{Binding EmailFrameBackgroundColor}">
+                    <Entry x:Name="EmailEntry" BackgroundColor="#9ca7b8" Text="{Binding Email}" TextColor="{Binding EmailTextColor}" Focused="EmailEntry_Focused"/>
+                </Frame>
+                
+                <Label Text="FirstName" TextColor="Black"/>
+                <Frame Padding="3" BorderColor="#9ca7b8" CornerRadius="5" BackgroundColor="{Binding FirstNameFrameBackgroundColor}">
+                    <Entry x:Name ="FirstNameEntry" BackgroundColor="#9ca7b8" 
+                           Text="{Binding FirstName}" TextColor="{Binding FirstNameTextColor}" Focused="FirstNameEntry_Focused"/>
+                </Frame>
+                
+                <Label Text="MiddleName" TextColor="Black"/>
+                <Frame Padding="3" BorderColor="#9ca7b8" CornerRadius="5" BackgroundColor="{Binding MiddleNameFrameBackgroundColor}">
+                    <Entry x:Name="MiddleNameEntry" BackgroundColor="#9ca7b8" 
+                           Text="{Binding MiddleName}" TextColor="{Binding MiddleNameTextColor}" Focused="MiddleNameEntry_Focused"/>
+                </Frame>
+                
+                <Label Text="LastName" TextColor="Black"/>
+                <Frame Padding="3" BorderColor="#9ca7b8" CornerRadius="5" BackgroundColor="{Binding LastNameFrameBackgroundColor}">
+                    <Entry x:Name="LastNameEntry" BackgroundColor="#9ca7b8" 
+                           Text="{Binding LastName}" TextColor="{Binding LastNameTextColor}" Focused="LastNameEntry_Focused" />
+                </Frame>
+                
+                <Label Text="City" TextColor="Black"/>
+                <Frame Padding="3" BorderColor="#9ca7b8" CornerRadius="5" BackgroundColor="{Binding CityFrameBackgroundColor}">
+                    <Entry x:Name="CityEntry"  BackgroundColor="#9ca7b8" 
+                           Text="{Binding City}" TextColor="{Binding CityTextColor}" Focused="CityEntry_Focused"/>
+                </Frame>
+                
+                <Label Text="PhoneNumber" TextColor="Black"/>
+                <Frame Padding="3" BorderColor="#9ca7b8" CornerRadius="5" BackgroundColor="{Binding PhoneNumberFrameBackgroundColor}">
+                    <Entry x:Name="PhoneNumberEntry" BackgroundColor="#9ca7b8" 
+                           Text="{Binding PhoneNumber}" TextColor="{Binding PhoneNumberTextColor}" Focused="PhoneNumberEntry_Focused"/>
+                </Frame>
+                
+                <Label Text="Password" TextColor="Black"/>
+                <Frame Padding="3" BorderColor="#9ca7b8" CornerRadius="5" BackgroundColor="{Binding PasswordFrameBackgroundColor}">
+                    <Entry x:Name="PasswordEntry" BackgroundColor="#9ca7b8" 
+                           Text="{Binding Password}" TextColor="{Binding PasswordTextColor}" Focused="PasswordEntry_Focused"/>
+                </Frame>
+
+                <Label Text="Create account as a teacher?" TextColor="Black" HorizontalOptions="Start"/>
+                <Switch IsToggled="{Binding TeacherAccount}" HorizontalOptions="Start"/>
+                <Button VerticalOptions="Center" Text="Register" Command="{Binding RegisterCommand}"/>
+
+            </StackLayout>
+        </ScrollView>
+       
+    </ContentPage.Content>
+</ContentPage>
+
