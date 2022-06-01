@@ -1,8 +1,11 @@
 ﻿using BPRMobileApp.Models;
+using BPRMobileApp.Models.Requests;
+using BPRMobileApp.Models.Responses;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IdentityModel.Tokens.Jwt;
 using System.Net.Http;
 using System.Security.Claims;
@@ -20,18 +23,18 @@ namespace BPRMobileApp.Services
         private Task<string> deserializedJson; 
         private HttpContent httpContent;
         private Token token;
-        private List<DataBaseSubject> subjects;
+        private List<SubjectDTO> subjects;
         JwtSecurityTokenHandler jwtSecurityTokenHandler;
         SecurityToken securityToken;
         JwtSecurityToken jwtSecurityToken;
         IEnumerable<Claim> claims;
-        private List<Offer> offers = new List<Offer>();
+        private List<OfferDTOResponse> offers = new List<OfferDTOResponse>();
 
         #endregion
 
         #region Properties
 
-        public List<Offer> Offers
+        public List<OfferDTOResponse> Offers
         {
             get { return offers; }
             set { offers = value; }
@@ -83,7 +86,7 @@ namespace BPRMobileApp.Services
             set { token = value; }
         }
 
-        public List<DataBaseSubject> Subjects
+        public List<SubjectDTO> Subjects
         {
             get { return subjects; }
             set { subjects = value; }
@@ -122,11 +125,11 @@ namespace BPRMobileApp.Services
             return JsonWebToken = JsonConvert.DeserializeObject<Token>(stream);
         }
 
-        public async Task<List<DataBaseSubject>> DeserializeToDataBaseSubject(HttpResponseMessage response)
+        public async Task<List<SubjectDTO>> DeserializeToDataBaseSubject(HttpResponseMessage response)
         {
             DeserializedJson = response.Content.ReadAsStringAsync();
             Stream = await DeserializedJson;
-            return Subjects = JsonConvert.DeserializeObject<List<DataBaseSubject>>(Stream);
+            return Subjects = JsonConvert.DeserializeObject<List<SubjectDTO>>(Stream);
         }
 
         public Task<IEnumerable<Claim>> DeserializeToken(Token token)
@@ -136,30 +139,38 @@ namespace BPRMobileApp.Services
             return Task.FromResult(Claims = JwtSecurityToken.Claims);
         }
 
-        public async Task<List<Offer>> DeserializeToOffer(HttpResponseMessage response)
+        public async Task<List<OfferDTOResponse>> DeserializeToOffer(HttpResponseMessage response)
         {
             DeserializedJson = response.Content.ReadAsStringAsync();
             Stream = await DeserializedJson;
-            return  JsonConvert.DeserializeObject<List<Offer>>(Stream);
+            return  JsonConvert.DeserializeObject<List<OfferDTOResponse>>(Stream);
         }
 
-        public Offer DeserializeQueryToOffer(string json)
+        public OfferDTOResponse DeserializeQueryToOffer(string json)
         {
-            return JsonConvert.DeserializeObject<Offer>(json);
+            return JsonConvert.DeserializeObject<OfferDTOResponse>(json);
         }
 
-        public string SerializeOfferToQuerry(Offer offer)
+        public string SerializeOfferToQuerry(OfferDTOResponse offer)
         {
             serializedJson = JsonConvert.SerializeObject(offer, Formatting.Indented);
             serializedJson.Replace("\\", " ");
             return serializedJson;
         }
 
-        public HttpContent SerializeToBookOffer(BookOffer offer)
+        public HttpContent SerializeToBookOffer(BookTimeDTO offer)
         {
             serializedJson = JsonConvert.SerializeObject(offer, Formatting.Indented);
             return HttpContent = new StringContent(serializedJson, Encoding.UTF8, "application/json");
         }
+
+        public async Task<ObservableCollection<QuestionsDTOResponse>> DeserializeToQuestionnaire(HttpResponseMessage response)
+        {
+            DeserializedJson = response.Content.ReadAsStringAsync();
+            Stream = await DeserializedJson;
+            return JsonConvert.DeserializeObject<ObservableCollection<QuestionsDTOResponse>>(Stream);
+        }
+
         #endregion
     }
 }

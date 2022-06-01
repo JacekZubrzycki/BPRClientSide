@@ -69,6 +69,9 @@ public class MonoPackageManager_Resources {
 		"Xamarin.Forms.Xaml.dll",
 		"Xamarin.Google.Android.Material.dll",
 		"Xamarin.Google.Guava.ListenableFuture.dll",
+		"xunit.abstractions.dll",
+		"xunit.assert.dll",
+		"xunit.core.dll",
 	};
 	public static String[] Dependencies = new String[]{
 	};

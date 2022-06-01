@@ -1,4 +1,5 @@
 ﻿using BPRMobileApp.Models;
+using BPRMobileApp.Models.Responses;
 using BPRMobileApp.ViewModels;
 using System;
 using System.Collections.ObjectModel;
@@ -26,7 +27,7 @@ namespace BPRMobileApp.Views
         private void List_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             
-            viewModel.OfferSelected((Offer)this.List.SelectedItem);
+            viewModel.OfferSelected((OfferDTOResponse)this.List.SelectedItem);
         }
     }
 }

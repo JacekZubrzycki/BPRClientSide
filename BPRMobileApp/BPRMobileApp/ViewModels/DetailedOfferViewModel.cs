@@ -1,4 +1,6 @@
 ﻿using BPRMobileApp.Models;
+using BPRMobileApp.Models.Requests;
+using BPRMobileApp.Models.Responses;
 using BPRMobileApp.Services;
 using System;
 using System.Collections.Generic;
@@ -6,6 +8,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
+using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -13,7 +16,7 @@ namespace BPRMobileApp.ViewModels
 {
     public class DetailedOfferViewModel : BaseViewModel
     {
-        private Offer offer;
+        private OfferDTOResponse offer;
         private string offerId;
         private string subjectName;
         private string teacherName;
@@ -31,7 +34,7 @@ namespace BPRMobileApp.ViewModels
         private MobileDataProvider provider;
         private MobileSerializer serializer = new MobileSerializer();
         private string token;
-        List<Offer> offerts = new List<Offer>();
+        List<OfferDTOResponse> offerts = new List<OfferDTOResponse>();
 
 
 
@@ -168,21 +171,21 @@ namespace BPRMobileApp.ViewModels
             }
         }
         
-        public Offer Offer
+        public OfferDTOResponse Offer
         {
             get { return offer; }
             set 
             { 
                 offer = value;
-                OfferId = Offer.Listed_Subject_Id;
-                SubjectName = Offer.Subject.name;
+                OfferId = Offer.Offer_Id.ToString();
+                SubjectName = Offer.Subjects.name;
                 TeacherName = Offer.Teacher.Name;
                 Location = Offer.Teacher.TeacherLocation;
                 PhoneNumber = Offer.Teacher.PhoneNumber;
-                AvgRating = Offer.Teacher.AvgRating;
-                Price = Offer.Price;
-                From = Offer.From;
-                To = Offer.To;
+                AvgRating = Offer.Teacher.AvgRating.ToString();
+                Price = Offer.Price.ToString();
+                From = Offer.From.ToUniversalTime().ToString();
+                To = Offer.To.ToUniversalTime().ToString();
             }
         }
 
@@ -193,39 +196,22 @@ namespace BPRMobileApp.ViewModels
             ToList = new ObservableCollection<DateTime>();
             BookOffer = new Command(BookAnOffer);
             provider = new MobileDataProvider();
+            GetBookedTimes();
         }
 
         private void PopulateFromList()
         {
-            DateTime fromDate = new DateTime();
-            DateTime toDate = new DateTime();
-            TimeSpan amountOfHours = new TimeSpan();
-            DateTime date = new DateTime();
-            Int32 amountOfMinutes;
-            fromDate = Convert.ToDateTime(From);
-            toDate = Convert.ToDateTime(To);
-            amountOfHours = toDate.Subtract(fromDate);
-            amountOfMinutes = (int)amountOfHours.TotalMinutes;
-            double timeToBeAdded = Double.Parse(Offer.MinTime);
-            GetBookedTimes();
-            for (double i = 0; i < amountOfMinutes; i += timeToBeAdded)
-            {
-                Double.Parse(Offer.MinTime);
-                date =  fromDate.AddMinutes(i);
-                FromList.Add(date);
-            }
-            ToList = new ObservableCollection<DateTime>(FromList);
-            FromList.RemoveAt(ToList.Count - 1);
-            ToList.RemoveAt(0);
-            
 
+            GetBookedTimes();
+
+            
         }
 
         private async void BookAnOffer()
         {
             GetToken();
-            BookOffer bookOffer = new BookOffer(Offer.Listed_Subject_Id,
-                FromList.ElementAt(SelectedIndexFromList).ToUniversalTime().ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fffK"), ToList.ElementAt(SelectedIndexToList).ToUniversalTime().ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fffK"));
+            BookTimeDTO bookOffer = new BookTimeDTO(Offer.Offer_Id,
+                FromList.ElementAt(SelectedIndexFromList).ToUniversalTime(), ToList.ElementAt(SelectedIndexToList).ToUniversalTime());
             HttpResponseMessage response = await provider.BookAnOffer(token, bookOffer);
             Console.WriteLine(response);
         }
@@ -239,8 +225,45 @@ namespace BPRMobileApp.ViewModels
         public async void GetBookedTimes()
         {
             GetToken();
-            HttpResponseMessage response = await provider.GetBookedTiemsByOfferId(token, Int32.Parse(Offer.Listed_Subject_Id));
+            HttpResponseMessage response = await provider.GetBookedTiemsByOfferId(token, Offer.Offer_Id);
             offerts = await serializer.DeserializeToOffer(response);
+            DateTime fromDate = new DateTime();
+            DateTime toDate = new DateTime();
+            TimeSpan amountOfHours = new TimeSpan();
+            DateTime date = new DateTime();
+            Int32 amountOfMinutes;
+            fromDate = Convert.ToDateTime(From);
+            toDate = Convert.ToDateTime(To);
+            amountOfHours = toDate.Subtract(fromDate);
+            amountOfMinutes = (int)amountOfHours.TotalMinutes;
+            int timeToBeAdded = Offer.MinTime;
+
+            for (double i = 0; i < amountOfMinutes; i += timeToBeAdded)
+            {
+                date = fromDate.AddMinutes(i);
+                FromList.Add(date);
+            }
+
+            foreach (OfferDTOResponse offer in offerts)
+            {
+
+                if (FromList.Contains(Convert.ToDateTime(offer.From)))
+                {
+                    FromList.Remove(Convert.ToDateTime(offer.From));
+                }
+
+                if (FromList.Contains(Convert.ToDateTime(offer.To)))
+                {
+                    FromList.Remove(Convert.ToDateTime(offer.To));
+                }
+            }
+
+            ToList = new ObservableCollection<DateTime>(FromList);
+            if (ToList.Count > 0)
+            {
+                ToList.RemoveAt(0);
+            }
+            
         }
 
     }

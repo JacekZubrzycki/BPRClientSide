@@ -17,6 +17,7 @@ namespace BPRMobileApp
             Routing.RegisterRoute(nameof(TeacherHomeView), typeof(TeacherHomeView));
             Routing.RegisterRoute(nameof(DetailedOfferView), typeof(DetailedOfferView));
             Routing.RegisterRoute(nameof(AddNewOfferView), typeof(AddNewOfferView));
+            Routing.RegisterRoute(nameof(TakeTestView), typeof(TakeTestView));
         }
 
     }

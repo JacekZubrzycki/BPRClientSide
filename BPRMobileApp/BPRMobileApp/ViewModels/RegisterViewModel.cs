@@ -1,5 +1,6 @@
 ﻿using Android.Widget;
 using BPRMobileApp.Models;
+using BPRMobileApp.Models.Requests;
 using BPRMobileApp.Services;
 using BPRMobileApp.Views;
 using System;
@@ -14,10 +15,10 @@ namespace BPRMobileApp.ViewModels
     {
         #region Const
 
-        private Color emptyEntry = Color.FromHex("#e31b1b");
-        private Color defautEntry = Color.FromHex("#ffffff");
+        private Color emptyEntry = Color.FromHex("#173058");
+        private Color defautEntry = Color.FromHex("#173058");
         private Color defaultText = Color.FromHex("#000000");
-        private string emptyEntryText = " can not be empty";
+        private string emptyEntryText = " cannot be empty";
 
         #endregion
 
@@ -25,7 +26,7 @@ namespace BPRMobileApp.ViewModels
 
         private Command registerCommand;
         private MobileDataProvider dataProvider = new MobileDataProvider();
-        private RegisterUser registerUser;
+        private UserRegisterDTO registerUser;
         private Color usernameFrameBackgroundColor;
         private Color passwordFrameBackgroundColor;
         private Color emailFrameBackgroundColor;
@@ -311,6 +312,7 @@ namespace BPRMobileApp.ViewModels
             RegisterCommand = new Command(OnRegisterClicked);
             TeacherAccount = false;
             UsernameFrameBackgroundColor = defautEntry;
+            EmailFrameBackgroundColor = defautEntry;
             FirstNameFrameBackgroundColor = defautEntry;
             MiddleNameFrameBackgroundColor = defautEntry;
             LastNameFrameBackgroundColor = defautEntry;
@@ -334,7 +336,7 @@ namespace BPRMobileApp.ViewModels
         {
             if (!(CheckIfEntriesAreEmpty()))
             {
-                registerUser = new RegisterUser(Username, Email, FirstName, MiddleName, LastName, City, PhoneNumber, Password);
+                registerUser = new UserRegisterDTO(Username, Email, FirstName, MiddleName, LastName, City, PhoneNumber, Password);
                 HttpResponseMessage response = await dataProvider.RegisterUser(registerUser, TeacherAccount);
                 if (response.IsSuccessStatusCode)
                 {

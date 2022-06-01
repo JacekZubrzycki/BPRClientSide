@@ -1,4 +1,4 @@
-﻿using BPRMobileApp.Models;
+﻿using BPRMobileApp.Models.Responses;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using System.Net.Http.Headers;
 using Newtonsoft.Json;
 using System.Text.RegularExpressions;
+using BPRMobileApp.Models.Requests;
+using BPRMobileApp.Models;
 
 namespace BPRMobileApp.Services
 {
@@ -37,7 +39,7 @@ namespace BPRMobileApp.Services
 
         #region Methods
 
-        public async Task<HttpResponseMessage> RegisterUser(RegisterUser user, bool teacherAccount)
+        public async Task<HttpResponseMessage> RegisterUser(UserRegisterDTO user, bool teacherAccount)
         {
             if (teacherAccount)
             {
@@ -50,58 +52,77 @@ namespace BPRMobileApp.Services
             
         }
 
-        public async Task<HttpResponseMessage> LoginUser(LoginUser user)
+        public async Task<HttpResponseMessage> LoginUser(UserLoginDTO user)
         {
             return response = await client.PostAsync(baseUrl + "Authenticate/login", serializer.SerializeObject(user));
         }
 
-        public async Task<HttpResponseMessage> AddSubject(Subject subject, string token)
+        public async Task<HttpResponseMessage> AddSubject(int subject_Id, string token)
         {
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-            return response = await client.PostAsync(baseUrl + "ListSubjects/AddSubject", serializer.SerializeObject(subject));
+            return response = await client.GetAsync(baseUrl + $"Teacher/AddSubjectToTeacher?subject_Id={subject_Id}");
         }
 
         public async Task<HttpResponseMessage> GetSubjects(string token)
         {
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-            return response = await client.GetAsync(baseUrl + "ListSubjects/GetSubjects");
+            return response = await client.GetAsync(baseUrl + "Teacher/GetAllSubjects");
         }
 
         public async Task<HttpResponseMessage> GetPostedSubjects(string token)
         {
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-            return response = await client.GetAsync(baseUrl + "ListSubjects/GetPostedSubjects");
+            return response = await client.GetAsync(baseUrl + "Student/GetAllPostedOffers");
         }
 
-        public async Task<HttpResponseMessage> PostAnOffer(string token, CreateOffer offer)
+        public async Task<HttpResponseMessage> PostAnOffer(string token, OfferDTORequest offer)
         {  
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-            return response = await client.PostAsync(baseUrl + "ListSubjects/PostAnOffer", serializer.SerializeObject(offer));
-        }
-
-        public async Task<HttpResponseMessage> GetPostedOffers(string token)
-        {
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-            return response = await client.GetAsync(baseUrl + "ListSubject/GetPostedSubjects");
+            return response = await client.PostAsync(baseUrl + "Teacher/PostAnOffer", serializer.SerializeObject(offer));
         }
 
         public async Task<HttpResponseMessage> GetOffersWithSubject(string token, string subject)
         {
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-            return response = await client.GetAsync(baseUrl + $"ListSubjects/GetOffersWithSubject?name={subject}");
+            return response = await client.GetAsync(baseUrl + $"GetOffersAccordingToSubjectName?subject_name={subject}");
         }
 
-        public async Task<HttpResponseMessage> BookAnOffer(string token, BookOffer offer)
+        public async Task<HttpResponseMessage> BookAnOffer(string token, BookTimeDTO offer)
         {
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-            return response = await client.PostAsync(baseUrl + "Booking/BookAnOffer", serializer.SerializeToBookOffer(offer));
+            return response = await client.PostAsync(baseUrl + "Student/BookAnOffer", serializer.SerializeToBookOffer(offer));
         }
 
         public async Task<HttpResponseMessage> GetBookedTiemsByOfferId(string token, int id)
         {
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-            return response = await client.GetAsync(baseUrl + $"Booking/GetBookedTimesSubjectId?id={id}");
+            return response = await client.GetAsync(baseUrl + $"Student/GetBookedTimesOnlyAccordingToOfferID?offer_id={id}");
         }
+
+        public async Task<HttpResponseMessage> TakeTest(string token, string subjectId)
+        {
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            return response = await client.GetAsync(baseUrl + $"Teacher/TakeTest?subject_id={subjectId}");
+        }
+
+        public async Task<HttpResponseMessage> AddQuestionnaireToSubjects(string token, QuestionsDTOResponse questionnaire)
+        {
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            return response = await client.PostAsync(baseUrl + $"Teacher/AddQuestionnaireToSubjects", serializer.SerializeObject(questionnaire));
+        }
+        
+        public async Task<HttpResponseMessage> AddQuestionWithOptions(string token, QuestionOptionDTOResponse question)
+        {
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            return response = await client.PostAsync(baseUrl + $"Teacher/AddNewQuestionWithOptions", serializer.SerializeObject(question));
+        }
+        
+        public async Task<HttpResponseMessage> SubmitAnswers(string token, List<QuestionAnswersDTO> answers)
+        {
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            return response = await client.PostAsync(baseUrl + $"Teacher/SubmitAnswers", serializer.SerializeObject(answers));
+        }
+
 
         #endregion
     }

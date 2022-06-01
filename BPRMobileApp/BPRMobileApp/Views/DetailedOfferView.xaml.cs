@@ -1,4 +1,5 @@
 ﻿using BPRMobileApp.Models;
+using BPRMobileApp.Models.Responses;
 using BPRMobileApp.Services;
 using BPRMobileApp.ViewModels;
 using System;
@@ -17,7 +18,7 @@ namespace BPRMobileApp.Views
     {
         private DetailedOfferViewModel viewModel;
         private MobileSerializer serializer = new MobileSerializer();
-        private Offer offer;
+        private OfferDTOResponse offer;
         public DetailedOfferView()
         {
             InitializeComponent();
@@ -25,7 +26,7 @@ namespace BPRMobileApp.Views
             this.BindingContext = viewModel;
         }
         public string param { get; set; }
-        public Offer Offer
+        public OfferDTOResponse Offer
         {
             get { return offer; }
             set

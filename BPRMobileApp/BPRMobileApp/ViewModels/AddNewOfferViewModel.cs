@@ -1,12 +1,12 @@
-﻿using BPRMobileApp.Models;
+﻿using Android.Widget;
+using BPRMobileApp.Models;
+using BPRMobileApp.Models.Requests;
 using BPRMobileApp.Services;
 using BPRMobileApp.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -14,6 +14,8 @@ namespace BPRMobileApp.ViewModels
 {
     public class AddNewOfferViewModel : BaseViewModel
     {
+        #region Members
+
         private Command addNewOffer;
         private ObservableCollection<string> subjects;
         private string price;
@@ -24,8 +26,13 @@ namespace BPRMobileApp.ViewModels
         private TimeSpan toTime;
         MobileDataProvider provider = new MobileDataProvider();
         MobileSerializer serializer = new MobileSerializer();
-        private List<DataBaseSubject> dataBaseSubjects;
+        private List<SubjectDTO> dataBaseSubjects;
         string token;
+        HttpResponseMessage response;
+
+        #endregion
+
+        #region Properties
 
         public TimeSpan ToTime
         {
@@ -103,13 +110,21 @@ namespace BPRMobileApp.ViewModels
             set { addNewOffer = value; }
         }
 
+        #endregion
+
+        #region .Constr
+
         public AddNewOfferViewModel()
         {
             AddNewOffer = new Command(AddNewOfferClicked);
-            dataBaseSubjects = new List<DataBaseSubject>();
+            dataBaseSubjects = new List<SubjectDTO>();
             Subjects = new ObservableCollection<string>();
             GetAllSubjects();
         }
+
+        #endregion
+
+        #region Methods
 
         private async void AddNewOfferClicked()
         {
@@ -118,8 +133,8 @@ namespace BPRMobileApp.ViewModels
             datef = FromDate.Add(FromTime);
             datet = ToDate.Add(ToTime);
 
-            DataBaseSubject subject = new DataBaseSubject();
-            foreach(DataBaseSubject s in dataBaseSubjects)
+            SubjectDTO subject = new SubjectDTO();
+            foreach(SubjectDTO s in dataBaseSubjects)
             {
                 if (Subjects.Contains(s.name))
                 {
@@ -127,10 +142,33 @@ namespace BPRMobileApp.ViewModels
                     break;
                 }
             }
-            CreateOffer offer = new CreateOffer(subject.subject_Id, Price, MinTime,
-                datef.ToUniversalTime().ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fffK"),
-                datet.ToUniversalTime().ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fffK"));
-            HttpResponseMessage response = await provider.PostAnOffer(token, offer);
+
+            if (subject != null && 
+                Price != null && 
+                MinTime != null && 
+                datef != null && 
+                datet != null)
+            {
+                OfferDTORequest offer = new OfferDTORequest(subject.subject_Id,
+                    Decimal.Parse(Price), Int32.Parse(MinTime),
+                    datef.ToUniversalTime(), datet.ToUniversalTime());
+                response = await provider.PostAnOffer(token, offer);
+            }
+            else
+            {
+                Toast.MakeText(Android.App.Application.Context, "Full fill all required data", ToastLength.Short).Show();
+            }
+
+            if (response.IsSuccessStatusCode)
+            {
+                Toast.MakeText(Android.App.Application.Context, "Offer has been created", ToastLength.Short).Show();
+                await Shell.Current.GoToAsync($"//{nameof(TeacherHomeView)}");
+            }
+            else
+            {
+                Toast.MakeText(Android.App.Application.Context, "Something went wrong\nTry again", ToastLength.Short).Show();
+            }
+            
         }
 
         public async void GetAllSubjects()
@@ -138,7 +176,7 @@ namespace BPRMobileApp.ViewModels
             GetToken();
             HttpResponseMessage response = await provider.GetSubjects(token);
             dataBaseSubjects = await serializer.DeserializeToDataBaseSubject(response);
-            foreach (DataBaseSubject subject in dataBaseSubjects)
+            foreach (SubjectDTO subject in dataBaseSubjects)
             {
                 Subjects.Add(subject.name);
             }
@@ -146,8 +184,9 @@ namespace BPRMobileApp.ViewModels
 
         public async void GetToken()
         {
-            var a = await SecureStorage.GetAsync("token");
-            token = a;
+            token = await SecureStorage.GetAsync("token");
         }
+        
+        #endregion
     }
 }

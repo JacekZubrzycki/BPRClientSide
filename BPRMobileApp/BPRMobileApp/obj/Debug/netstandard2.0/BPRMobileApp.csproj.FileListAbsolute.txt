@@ -5,8 +5,6 @@ C:\Users\endri\source\repos\BPRMobileApp\BPRMobileApp\BPRMobileApp\obj\Debug\net
 C:\Users\endri\source\repos\BPRMobileApp\BPRMobileApp\BPRMobileApp\obj\Debug\netstandard2.0\BPRMobileApp.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\endri\source\repos\BPRMobileApp\BPRMobileApp\BPRMobileApp\obj\Debug\netstandard2.0\App.xaml.g.cs
 C:\Users\endri\source\repos\BPRMobileApp\BPRMobileApp\BPRMobileApp\obj\Debug\netstandard2.0\AppShell.xaml.g.cs
-C:\Users\endri\source\repos\BPRMobileApp\BPRMobileApp\BPRMobileApp\obj\Debug\netstandard2.0\Views\ItemDetailPage.xaml.g.cs
-C:\Users\endri\source\repos\BPRMobileApp\BPRMobileApp\BPRMobileApp\obj\Debug\netstandard2.0\Views\ItemsPage.xaml.g.cs
 C:\Users\endri\source\repos\BPRMobileApp\BPRMobileApp\BPRMobileApp\obj\Debug\netstandard2.0\BPRMobileApp.AssemblyInfoInputs.cache
 C:\Users\endri\source\repos\BPRMobileApp\BPRMobileApp\BPRMobileApp\obj\Debug\netstandard2.0\BPRMobileApp.AssemblyInfo.cs
 C:\Users\endri\source\repos\BPRMobileApp\BPRMobileApp\BPRMobileApp\obj\Debug\netstandard2.0\BPRMobileApp.csproj.CoreCompileInputs.cache
@@ -27,3 +25,5 @@ C:\Users\endri\source\repos\BPRMobileApp\BPRMobileApp\BPRMobileApp\obj\Debug\net
 C:\Users\endri\source\repos\BPRMobileApp\BPRMobileApp\BPRMobileApp\obj\Debug\netstandard2.0\BPRMobileApp.csproj.GenerateResource.cache
 C:\Users\endri\source\repos\BPRMobileApp\BPRMobileApp\BPRMobileApp\obj\Debug\netstandard2.0\Views\DetailedOfferView.xaml.g.cs
 C:\Users\endri\source\repos\BPRMobileApp\BPRMobileApp\BPRMobileApp\obj\Debug\netstandard2.0\Views\AddNewOfferView.xaml.g.cs
+C:\Users\endri\source\repos\BPRMobileApp\BPRMobileApp\BPRMobileApp\obj\Debug\netstandard2.0\Views\SubjectsToTeachView.xaml.g.cs
+C:\Users\endri\source\repos\BPRMobileApp\BPRMobileApp\BPRMobileApp\obj\Debug\netstandard2.0\Views\TakeTestView.xaml.g.cs

@@ -3,28 +3,68 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="BPRMobileApp.Views.DetailedOfferView">
     <ContentPage.Content>
+        <ScrollView>
+        
         <StackLayout>
-            <Label Text="Offer id" TextColor="Black"/>
-            <Label Text="{Binding OfferId}" TextColor="Black"/>
-            <Label Text="Subject" TextColor="Black"/>
-            <Label Text="{Binding SubjectName}" TextColor="Black"/>
-            <Label Text="Teacher Name" TextColor="Black"/>
-            <Label Text="{Binding TeacherName}" TextColor="Black"/>
-            <Label Text="Location" TextColor="Black"/>
-            <Label Text="{Binding Location}" TextColor="Black"/>
-            <Label Text="Phone Number" TextColor="Black"/>
-            <Label Text="{Binding PhoneNumber}" TextColor="Black"/>
-            <Label Text="Avarage Rating" TextColor="Black"/>
-            <Label Text="{Binding AvgRating}" TextColor="Black"/>
-            <Label Text="Price" TextColor="Black"/>
-            <Label Text="{Binding Price}" TextColor="Black"/>
-            
-            <Label Text="{Binding From}" TextColor="Black"/>
-            <Picker ItemsSource="{Binding FromList}" SelectedIndex="{Binding SelectedIndexFromList}"/>
-            <Label Text="{Binding To}" TextColor="Black"/>
-            <Picker ItemsSource="{Binding ToList}" SelectedIndex="{Binding SelectedIndexToList}"/>
-            <Button Command="{Binding TestButton}" Text="Text"/>
-            <Button Command="{Binding BookOffer}" Text="Text"/>
+            <Frame Padding="3" BorderColor="#173058" CornerRadius="5" BackgroundColor="#173058" VerticalOptions="EndAndExpand" Margin="20,10,20,10">
+                    <StackLayout BackgroundColor="#0DAAD7">
+                    <Label Text="Offer id" TextColor="Black"/>
+                    <Label Text="{Binding OfferId}" TextColor="Black"/>
+                </StackLayout>
+            </Frame>
+            <Frame Padding="3" BorderColor="#173058" CornerRadius="5" BackgroundColor="#173058" VerticalOptions="EndAndExpand" Margin="20,10,20,10">
+                    <StackLayout BackgroundColor="#0DAAD7">
+                    <Label Text="Subject" TextColor="Black"/>
+                    <Label Text="{Binding SubjectName}" TextColor="Black"/>
+                </StackLayout>
+            </Frame>
+            <Frame Padding="3" BorderColor="#173058" CornerRadius="5" BackgroundColor="#173058" VerticalOptions="EndAndExpand" Margin="20,10,20,10">
+                    <StackLayout BackgroundColor="#0DAAD7">
+                    <Label Text="Teacher Name" TextColor="Black"/>
+                    <Label Text="{Binding TeacherName}" TextColor="Black"/>
+                </StackLayout>
+            </Frame>
+            <Frame Padding="3" BorderColor="#173058" CornerRadius="5" BackgroundColor="#173058" VerticalOptions="EndAndExpand" Margin="20,10,20,10">
+                    <StackLayout BackgroundColor="#0DAAD7">
+                    <Label Text="Location" TextColor="Black"/>
+                    <Label Text="{Binding Location}" TextColor="Black"/>
+                </StackLayout>
+            </Frame>
+            <Frame Padding="3" BorderColor="#173058" CornerRadius="5" BackgroundColor="#173058" VerticalOptions="EndAndExpand" Margin="20,10,20,10">
+                    <StackLayout BackgroundColor="#0DAAD7">
+                    <Label Text="Phone Number" TextColor="Black"/>
+                    <Label Text="{Binding PhoneNumber}" TextColor="Black"/>
+                </StackLayout>
+            </Frame>
+            <Frame Padding="3" BorderColor="#173058" CornerRadius="5" BackgroundColor="#173058" VerticalOptions="EndAndExpand" Margin="20,10,20,10">
+                    <StackLayout BackgroundColor="#0DAAD7">
+                    <Label Text="Avarage Rating" TextColor="Black"/>
+                    <Label Text="{Binding AvgRating}" TextColor="Black"/>
+                </StackLayout >
+            </Frame>
+            <Frame Padding="3" BorderColor="#173058" CornerRadius="5" BackgroundColor="#173058" VerticalOptions="EndAndExpand" Margin="20,10,20,10">
+                    <StackLayout BackgroundColor="#0DAAD7">
+                    <Label Text="Price" TextColor="Black"/>
+                    <Label Text="{Binding Price}" TextColor="Black"/>
+                </StackLayout>
+            </Frame>
+            <Frame Padding="3" BorderColor="#173058" CornerRadius="5" BackgroundColor="#173058" VerticalOptions="EndAndExpand" Margin="20,10,20,10">
+                    <StackLayout BackgroundColor="#0DAAD7">
+                    <Label Text="{Binding From}" TextColor="Black"/>
+                    <Picker ItemsSource="{Binding FromList}" SelectedIndex="{Binding SelectedIndexFromList}"/>
+                </StackLayout>
+            </Frame>
+                <Frame Padding="3" BorderColor="#173058" CornerRadius="5" BackgroundColor="#173058" VerticalOptions="EndAndExpand" Margin="20,10,20,10">
+                    <StackLayout BackgroundColor="#0DAAD7">
+                        <Label Text="{Binding To}" TextColor="Black"/>
+                        <Picker ItemsSource="{Binding ToList}" SelectedIndex="{Binding SelectedIndexToList}"/>
+                    </StackLayout>
+                </Frame>
+                <Frame Padding="3" BorderColor="#173058" CornerRadius="5" BackgroundColor="#173058" VerticalOptions="EndAndExpand" Margin="20,10,20,10">
+                    <Button Command="{Binding BookOffer}" Text="BookOffer" BackgroundColor="#173058"/>
+            </Frame>
+
         </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

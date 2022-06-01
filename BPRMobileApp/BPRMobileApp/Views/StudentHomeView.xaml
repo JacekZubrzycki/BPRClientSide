@@ -2,33 +2,41 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="BPRMobileApp.Views.StudentHomeView">
-
-
     <ContentPage.Content>
         <StackLayout >
-            <Entry Text="{Binding SearchBar}" BackgroundColor="Red" />
-            <Button Text="Search" Command="{Binding SearchBarCommand}"/>
-            <ListView x:Name="List" ItemsSource="{Binding Offers}" ItemSelected="List_ItemSelected" >
+            <Frame Padding="3" BorderColor="#9ca7b8" CornerRadius="5" BackgroundColor="#173058" Margin="20,10,20,10">
+                <StackLayout Orientation="Horizontal" BackgroundColor="#0DAAD7">
+                    <Entry Text="{Binding SearchBar}" BackgroundColor="#0DAAD7" HorizontalOptions="StartAndExpand" />
+                    <Image Source="search.png" HorizontalOptions="End" HeightRequest="30" Margin="0,0,20,0" >
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SearchBarCommand}"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+                </StackLayout>
+            </Frame>
+            <Label Text="There are no offers now" IsVisible="false" TextColor="Black" HorizontalOptions="Center"/>
+            <ListView x:Name="List" ItemsSource="{Binding Offers}" ItemSelected="List_ItemSelected">
             <ListView.ItemTemplate >
                 <DataTemplate>
                         <ViewCell>
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="*"/>
-                                    <RowDefinition Height="*"/>
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-                                <Label Text="Teachers Name:" FontAttributes="Bold" TextColor="Black" Grid.Column="0" />
-                                <Label Text="{Binding Teacher.Name}"  TextColor="Black" Grid.Column="0" Grid.Row="1" />
-                                <Label Text="Location:" FontAttributes="Bold" TextColor="Black" Grid.Column="1" Grid.Row="0" />
-                                <Label Text="{Binding Teacher.TeacherLocation}"  TextColor="Black" Grid.Column="1" Grid.Row="1" />
-                                <Label Text="Price:" FontAttributes="Bold" TextColor="Black" Grid.Column="2" />
-                                <Label Text="{Binding Price}" TextColor="Black" Grid.Column="2" Grid.Row="1"  />
-                            </Grid>
+                            <Grid BackgroundColor="#0DAAD7" >
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Label Text="Teachers Name:" FontAttributes="Bold" TextColor="Black" Grid.Column="0" />
+                                        <Label Text="{Binding Teacher.Name}"  TextColor="Black" Grid.Column="0" Grid.Row="1" />
+                                        <Label Text="Location:" FontAttributes="Bold" TextColor="Black" Grid.Column="1" Grid.Row="0" />
+                                        <Label Text="{Binding Teacher.TeacherLocation}"  TextColor="Black" Grid.Column="1" Grid.Row="1" />
+                                        <Label Text="Price:" FontAttributes="Bold" TextColor="Black" Grid.Column="2" />
+                                        <Label Text="{Binding Price}" TextColor="Black" Grid.Column="2" Grid.Row="1"  />
+                                    </Grid>
+
                         </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>

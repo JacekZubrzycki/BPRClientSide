@@ -1,6 +1,7 @@
 ﻿using Android.Content.Res;
 using Android.Widget;
 using BPRMobileApp.Models;
+using BPRMobileApp.Models.Requests;
 using BPRMobileApp.Services;
 using BPRMobileApp.Views;
 using Newtonsoft.Json;
@@ -138,8 +139,8 @@ namespace BPRMobileApp.ViewModels
             Serializer = new MobileSerializer();
             Handler = new JwtSecurityTokenHandler();
             Claims = new List<string>();
-            UsernameFrameBackgroundColor = Color.FromHex("#9ca7b8");
-            PasswordFrameBackgroundColor = Color.FromHex("#9ca7b8");
+            UsernameFrameBackgroundColor = Color.FromHex("#173058");
+            PasswordFrameBackgroundColor = Color.FromHex("#173058");
         }
 
         #endregion
@@ -157,7 +158,7 @@ namespace BPRMobileApp.ViewModels
                 PasswordFrameBackgroundColor = Color.FromHex("#e31b1b");
                 Password = "Password can not be empty";
             }
-            LoginUser user = new LoginUser(Username, Password);
+            UserLoginDTO user = new UserLoginDTO(Username, Password);
             var response = await dataProvider.LoginUser(user);          
 
             if (response.IsSuccessStatusCode)

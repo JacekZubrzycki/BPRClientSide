@@ -1,22 +1,53 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="BPRMobileApp.Views.AddNewOfferView">
+             x:Class="BPRMobileApp.Views.AddNewOfferView"
+             Shell.TabBarIsVisible="False">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Choose subject" TextColor="Black"/>
-            <Picker ItemsSource="{Binding Subjects}"/>
-            <Label Text="Price" TextColor="Black"/>
-            <Entry Text="{Binding Price}"/>
-            <Label Text="Minimum time" TextColor="Black"/>
-            <Entry Text="{Binding MinTime}"/>
-            <Label Text="From" TextColor="Black"/>
-            <DatePicker Date="{Binding FromDate}" BackgroundColor="AliceBlue"/>
-            <TimePicker Time="{Binding FromTime}" BackgroundColor="Aquamarine"/>
-            <Label Text="To" TextColor="Black"/>
-            <DatePicker Date="{Binding ToDate}" BackgroundColor="AliceBlue"/>
-            <TimePicker Time="{Binding ToTime}" BackgroundColor="Aquamarine"/>
-            <Button Text="Post Offer" Command="{Binding AddNewOffer}"/>
+            
+            <Frame Padding="3" BorderColor="#173058" CornerRadius="5" BackgroundColor="#173058" Margin="20,10,20,10">
+                <StackLayout BackgroundColor="#0DAAD7">
+                    <Label Text="Choose subject" TextColor="White" HorizontalOptions="Center"/>
+                    <Picker ItemsSource="{Binding Subjects}"/>
+                </StackLayout>
+            </Frame>
+            
+            <Frame Padding="3" BorderColor="#173058" CornerRadius="5" BackgroundColor="#173058"  Margin="20,10,20,10">
+                <StackLayout BackgroundColor="#0DAAD7">
+                    <Label Text="Price" TextColor="White" HorizontalOptions="Center"/>
+                    <Entry Text="{Binding Price}"/>
+                </StackLayout>
+
+            </Frame>
+            
+            <Frame Padding="3" BorderColor="#173058" CornerRadius="5" BackgroundColor="#173058"  Margin="20,10,20,10">
+                <StackLayout BackgroundColor="#0DAAD7">
+                    <Label Text="Minimum time" TextColor="White" HorizontalOptions="Center"/>
+                    <Entry Text="{Binding MinTime}"/>
+                </StackLayout>
+            </Frame>
+            
+            <Frame Padding="3" BorderColor="#173058" CornerRadius="5" BackgroundColor="#173058"  Margin="20,10,20,10">
+                <StackLayout BackgroundColor="#0DAAD7">
+                    <Label Text="From" TextColor="White" HorizontalOptions="Center"/>
+                    <DatePicker Date="{Binding FromDate}" BackgroundColor="#0DAAD7"/>
+                    <TimePicker Time="{Binding FromTime}" BackgroundColor="#0DAAD7"/>
+                </StackLayout>
+            </Frame>
+
+            <Frame Padding="3" BorderColor="#173058" CornerRadius="5" BackgroundColor="#173058"  Margin="20,10,20,10">
+                <StackLayout BackgroundColor="#0DAAD7">
+                    <Label Text="To" TextColor="White" HorizontalOptions="Center"/>
+                    <DatePicker Date="{Binding ToDate}" BackgroundColor="#0DAAD7" />
+                    <TimePicker Time="{Binding ToTime}" BackgroundColor="#0DAAD7"/>
+                </StackLayout>
+            </Frame>
+            
+            <Frame Padding="3" BorderColor="#173058" CornerRadius="5" BackgroundColor="#173058"  Margin="20,10,20,10">
+                <Button Text="Post Offer" Command="{Binding AddNewOffer}" TextColor="White" CornerRadius="3" BackgroundColor="#173058"/>
+            </Frame>
+            
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

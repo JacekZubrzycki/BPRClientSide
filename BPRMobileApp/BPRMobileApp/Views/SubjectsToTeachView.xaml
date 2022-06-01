@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BPRMobileApp.Views.SubjectsToTeachView">
+    <ContentPage.Content>
+        <Grid >
+            
+            <Button Text="Search" Command="{Binding AddNewSubject}"/>
+            <Label Text="There are no subjects now" IsVisible="{Binding NoOffersIsVisible}" TextColor="Black"/>
+            <ListView x:Name="List" ItemsSource="{Binding PickedUpSubject}" ItemSelected="List_ItemSelected" >
+                <ListView.ItemTemplate >
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Text="Subject name" FontAttributes="Bold" TextColor="Black" Grid.Column="0" />
+                                <Label Text="{Binding Subject}"  TextColor="Black" Grid.Column="0" Grid.Row="1" />
+                                <Label Text="Test status:" FontAttributes="Bold" TextColor="Black" Grid.Column="1" Grid.Row="0" />
+                                <Label Text="{Binding SubjectStatus}"  TextColor="Black" Grid.Column="1" Grid.Row="1" />
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <StackLayout >
+                <ContentView  BackgroundColor="#C0808080" Padding="10, 0" IsVisible="{Binding AddSubjectPopUpIsVisible}" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
+                    <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
+                        <StackLayout Orientation="Vertical" HeightRequest="150" WidthRequest="200" BackgroundColor="White">
+
+                            <Picker ItemsSource="{Binding Subjects}"/>
+                            <Button Text="Add subject}" Command="{Binding AddSubjectCommand}"/>
+                        </StackLayout>
+                    </StackLayout>
+                </ContentView>
+            </StackLayout>
+            
+            <Grid >
+                <ContentView  BackgroundColor="#C0808080" Padding="10" IsVisible="{Binding SubjectDetailsPopUpIsVisible}" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
+                    <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
+                        <StackLayout Orientation="Vertical" HeightRequest="150" WidthRequest="200" BackgroundColor="White">
+                            <Button Text="Take test}" Command="{Binding TakeTestCommand}"/>
+                            <Button Text="Delete" Command="{Binding DeleteSubjectCommand}"/>
+                            <Button Text="Cancel" Command="{Binding CancelCommand}"/>
+                        </StackLayout>
+                    </StackLayout>
+                </ContentView>
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

@@ -19,7 +19,7 @@ namespace BPRMobileApp.ViewModels
         string token;
         MobileDataProvider provider = new MobileDataProvider();
         MobileSerializer serializer = new MobileSerializer();
-        private List<DataBaseSubject> dataBaseSubjects;
+        private List<SubjectDTO> dataBaseSubjects;
         private ObservableCollection<string> subjects;
         private Command addNewOffer;
 
@@ -38,33 +38,34 @@ namespace BPRMobileApp.ViewModels
                 OnPropertyChanged();
             }
         }
+
         public TeacherHomeViewModel()
         {
             Subjects = new ObservableCollection<string>();
-            dataBaseSubjects = new List<DataBaseSubject>();
+            dataBaseSubjects = new List<SubjectDTO>();
             AddNewOffer = new Command(AddNewOfferClicked);
 
         }
 
         public async void GetToken()
         {
-            var a = await SecureStorage.GetAsync("token");
+            string a = await SecureStorage.GetAsync("token");
             token = a;
         }
 
         public async void AddSubject()
         {
-            Subject subject = new Subject();
-            subject.name = "TestAddSubject";          
-            HttpResponseMessage response = await provider.AddSubject(subject, token);
-            Console.WriteLine(response.Content);
+            //Subject subject = new Subject();
+            //subject.name = "TestAddSubject";          
+            //HttpResponseMessage response = await provider.AddSubject("TestAddSubject", token);
+            //Console.WriteLine(response.Content);
         }
 
         public async void GetAllSubjects()
         {
             HttpResponseMessage response = await provider.GetSubjects(token);
             dataBaseSubjects = await serializer.DeserializeToDataBaseSubject(response);
-            foreach (DataBaseSubject subject in dataBaseSubjects)
+            foreach (SubjectDTO subject in dataBaseSubjects)
             {
                 Subjects.Add(subject.name);
             }

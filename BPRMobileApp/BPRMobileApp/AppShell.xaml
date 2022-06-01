@@ -3,7 +3,8 @@
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
        xmlns:local="clr-namespace:BPRMobileApp.Views"
        Title="BPRMobileApp"
-       x:Class="BPRMobileApp.AppShell">
+       x:Class="BPRMobileApp.AppShell"
+       Shell.NavBarIsVisible="False">
 
     <!--
         The overall app visual hierarchy is defined here, along with navigation.
@@ -39,13 +40,19 @@
         <ShellContent Route="RegisterPage" ContentTemplate="{DataTemplate local:RegisterPage}" />
        
     <TabBar>
-        <ShellContent Route="TeacherHomeView" ContentTemplate="{DataTemplate local:TeacherHomeView}" />
-        <ShellContent Route="StudentHomeView" ContentTemplate="{DataTemplate local:StudentHomeView}" />
-        <ShellContent Route="DetailedOfferView" ContentTemplate="{DataTemplate local:DetailedOfferView}"/>
-        <ShellContent Route="AddNewOfferView" ContentTemplate="{DataTemplate local:AddNewOfferView}"/>
+        <Tab Icon="icon_feed.png" Title="Home">
+            <ShellContent Route="TeacherHomeView" ContentTemplate="{DataTemplate local:TeacherHomeView}" />
+        </Tab>
+
+            <ShellContent Route="AddNewOfferView" ContentTemplate="{DataTemplate local:AddNewOfferView}"/>
+
+        <Tab Icon="icon_feed.png" Title="Subjects">
+            <ShellContent Route="SubjectsToTeachView" ContentTemplate="{DataTemplate local:SubjectsToTeachView}"/>
+        </Tab>
     </TabBar>
 
-    
+    <ShellContent Route="StudentHomeView" ContentTemplate="{DataTemplate local:StudentHomeView}" />
+    <ShellContent Route="DetailedOfferView" ContentTemplate="{DataTemplate local:DetailedOfferView}"/>
 
 
 </Shell>

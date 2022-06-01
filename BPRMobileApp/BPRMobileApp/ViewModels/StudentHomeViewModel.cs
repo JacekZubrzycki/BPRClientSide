@@ -1,5 +1,6 @@
 ﻿using Android.Graphics;
 using BPRMobileApp.Models;
+using BPRMobileApp.Models.Responses;
 using BPRMobileApp.Services;
 using BPRMobileApp.Views;
 using System;
@@ -23,9 +24,20 @@ namespace BPRMobileApp.ViewModels
 
         private string searchBar;
         private Command searchBarCommand;
-        private Offer selectedOffer;
+        private OfferDTOResponse selectedOffer;
+        private bool noOffersIsVisible;
 
-        public Offer SelecetedOffer
+        public bool NoOffersIsVisible
+        {
+            get { return noOffersIsVisible; }
+            set 
+            { 
+                noOffersIsVisible = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public OfferDTOResponse SelecetedOffer
         {
             get { return selectedOffer; }
             set { selectedOffer = value; }
@@ -34,10 +46,10 @@ namespace BPRMobileApp.ViewModels
         //private string subjectName;
         //private string location;
         //private string price;
-        private ObservableCollection<Offer> offers = new ObservableCollection<Offer>();
+        private ObservableCollection<OfferDTOResponse> offers = new ObservableCollection<OfferDTOResponse>();
 
 
-        public ObservableCollection<Offer> Offers
+        public ObservableCollection<OfferDTOResponse> Offers
         {
             get { return offers; }
             set
@@ -75,6 +87,15 @@ namespace BPRMobileApp.ViewModels
         {
             GetToken();
             SearchBarCommand = new Command(OnSearchCliecked);
+            NoOffersIsVisible = true;
+            SubjectDTO subject = new SubjectDTO();
+            subject.subject_Id = 1;
+            subject.name = "Math";
+            TeacherDTOResponse teacher = new TeacherDTOResponse("1", "jacek", "horsens", "11111", "email", 10);
+            DateTime datefrom = new DateTime();
+            DateTime dateto = new DateTime();
+            OfferDTOResponse offer = new OfferDTOResponse(1, subject, teacher, 10, 10, datefrom, dateto);
+            Offers.Add(offer);
         }
 
         #endregion
@@ -89,8 +110,12 @@ namespace BPRMobileApp.ViewModels
 
         private async void GetOffersBySubjectAsync()
         {
-            HttpResponseMessage response = await provider.GetOffersWithSubject(token, SearchBar);
-            Offers =  new ObservableCollection<Offer>(await serializer.DeserializeToOffer(response));
+            if (!(String.IsNullOrEmpty(SearchBar)))
+            {
+                HttpResponseMessage response = await provider.GetOffersWithSubject(token, SearchBar);
+                Offers = new ObservableCollection<OfferDTOResponse>(await serializer.DeserializeToOffer(response));
+                NoOffersIsVisible = Offers.Count < 0 ? true : false;
+            }    
         }
 
         private void OnSearchCliecked(Object obj)
@@ -98,9 +123,9 @@ namespace BPRMobileApp.ViewModels
             GetOffersBySubjectAsync();
         }
 
-        public async void OfferSelected(Offer offer)
+        public async void OfferSelected(OfferDTOResponse offer)
         {
-            foreach(Offer item in Offers)
+            foreach(OfferDTOResponse item in Offers)
             {
                 if (item.Teacher.Name == offer.Teacher.Name && item.Price == offer.Price && item.Teacher.TeacherLocation == offer.Teacher.TeacherLocation)
                 {
